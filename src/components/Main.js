@@ -1,6 +1,6 @@
+import { PopupWithForm, ImagePopup } from '../components';
 import { buttonType } from '../constants';
 import avatar from '../images/loader.gif';
-import { PopupWithForm } from './PopupWithForm';
 
 export function Main() {
   const addClassToElementBySelector = ({ selector, className = 'popup_opened' }) => {
@@ -119,19 +119,7 @@ export function Main() {
         </label>
       </PopupWithForm>
       <PopupWithForm title="Вы уверены?" name="delete-confirmation" button={buttonType.YES}></PopupWithForm>
-      <div className="popup popup_zoom_image" id="zoom-img">
-        <div className="popup__container popup__container_zoom_image">
-          <button
-            className="popup__button popup__button_action_close popup__button_action_zoom-out"
-            type="button"
-            title="Закрыть"
-          />
-          <div>
-            <img className="popup__image" alt="Попап" />
-            <p className="popup__description" />
-          </div>
-        </div>
-      </div>
+      <ImagePopup />
     </main>
   );
 }
