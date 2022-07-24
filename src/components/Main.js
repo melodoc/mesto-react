@@ -7,7 +7,8 @@ export function Main({
   onEditProfile,
   onAddPlace,
   onEditAvatar,
-  onDeleteConfirmation
+  onDeleteConfirmation,
+  onCardClick
 }) {
   const [userName, setUserName] = useState(null);
   const [userDescription, setUserDescription] = useState(null);
@@ -62,7 +63,9 @@ export function Main({
         <ul className="photo-grid__list">
           {cards
             ? cards.map((card) => {
-                return <Card card={card} key={card._id}/>;
+                return (
+                  <Card card={card} key={card._id} onClick={onCardClick} />
+                );
               })
             : 'Загрузка...'}
         </ul>

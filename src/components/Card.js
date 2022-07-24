@@ -1,10 +1,18 @@
-export function Card(item) {
-  const card = item.card;
+export function Card({ card, onClick }) {
+
+  const handleClick = () => {
+    onClick(card);
+  };
 
   return (
     <li className="card">
       <button className="card__trash-button" type="button" title="Удалить" />
-      <img className="card__image" alt={card.name} src={card.link} />
+      <img
+        className="card__image"
+        alt={card.name}
+        src={card.link}
+        onClick={handleClick}
+      />
       <div className="card__description">
         <h2 className="card__header">{card.name}</h2>
         <div>
