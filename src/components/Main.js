@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { apiClient } from '../utils/Api';
-import { Card } from '../components';
 import avatar from '../images/loader.gif';
+import { Card } from './Card';
 
 export function Main({
   onEditProfile,

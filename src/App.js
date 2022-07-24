@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { Header, Main, Footer, PopupWithForm, ImagePopup } from './components';
+import { Header} from './components/Header';
+import { Main} from './components/Main';
+import { Footer} from './components/Footer';
+import { PopupWithForm } from './components/PopupWithForm';
+import { ImagePopup } from './components/ImagePopup';
 import { buttonType } from './constants';
 
 function App() {
