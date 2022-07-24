@@ -1,10 +1,19 @@
 import avatar from '../images/loader.gif';
 
-export function Main({ onEditProfile, onAddPlace, onEditAvatar, onDeleteConfirmation }) {
+export function Main({
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onDeleteConfirmation
+}) {
   return (
     <main className="main">
       <section className="profile">
-        <a className="profile__wrapper" onClick={(event) => onEditAvatar(event)} href=".">
+        <a
+          className="profile__wrapper"
+          onClick={(event) => onEditAvatar(event)}
+          href="."
+        >
           <img className="profile__avatar" src={avatar} alt="Аватар" />
         </a>
         <div className="profile__info">

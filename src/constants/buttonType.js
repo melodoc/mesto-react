@@ -1,4 +1,4 @@
 export const buttonType = {
-    SAVE: 'SAVE',
-    YES: 'YES'
-  };
+  SAVE: 'SAVE',
+  YES: 'YES'
+};

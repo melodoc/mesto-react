@@ -1,18 +1,18 @@
 .main {
-    /* size */
-    max-width: 880px;
-    /* offsets */
-    margin: 0 auto;
+  /* size */
+  max-width: 880px;
+  /* offsets */
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 1023px) {
-    .main {
-        padding: 0 40px;
-    }
+  .main {
+    padding: 0 40px;
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .main {
-        padding: 0;
-    }
+  .main {
+    padding: 0;
+  }
 }
