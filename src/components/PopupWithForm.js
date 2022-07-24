@@ -4,9 +4,18 @@ const getButtonName = (button) => {
   return button === buttonType.SAVE ? 'Сохранить' : 'Да';
 };
 
-export function PopupWithForm({ title, name, children, button }) {
+const addClassToElementBySelector = ({ selector, className = 'popup_opened' }) => {
+  const element = document.querySelector(selector);
+  element.classList.add(className);
+};
+
+export function PopupWithForm({ title, name, children, isOpen, button }) {
   const buttonName = getButtonName(button);
-  
+
+  if (isOpen) {
+    addClassToElementBySelector({ selector: `#${name}` });
+  }
+
   return (
     <div className="popup" id={name}>
       <div className="popup__container">

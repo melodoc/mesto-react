@@ -1,37 +1,17 @@
-import { PopupWithForm, ImagePopup } from '../components';
-import { buttonType } from '../constants';
 import avatar from '../images/loader.gif';
 
-export function Main() {
-  const addClassToElementBySelector = ({ selector, className = 'popup_opened' }) => {
-    const element = document.querySelector(selector);
-    element.classList.add(className);
-  };
-
-  const handleEditProfileClick = () => {
-    addClassToElementBySelector({ selector: '#profile' });
-  };
-
-  const handleEditAvatarClick = (event) => {
-    event.preventDefault();
-    addClassToElementBySelector({ selector: '#update-avatar' });
-  };
-
-  const handleAddPlaceClick = () => {
-    addClassToElementBySelector({ selector: '#add-card' });
-  };
-
+export function Main({ onEditProfile, onAddPlace, onEditAvatar, onDeleteConfirmation }) {
   return (
     <main className="main">
       <section className="profile">
-        <a className="profile__wrapper" onClick={(event) => handleEditAvatarClick(event)} href=".">
+        <a className="profile__wrapper" onClick={(event) => onEditAvatar(event)} href=".">
           <img className="profile__avatar" src={avatar} alt="Аватар" />
         </a>
         <div className="profile__info">
           <h1 className="profile__name">Жак-Ив Кусто</h1>
           <button
             className="profile__button profile__button_action_edit"
-            onClick={handleEditProfileClick}
+            onClick={onEditProfile}
             type="button"
             title="Редактировать"
           />
@@ -39,7 +19,7 @@ export function Main() {
         </div>
         <button
           className="profile__button profile__button_action_add"
-          onClick={handleAddPlaceClick}
+          onClick={onAddPlace}
           type="button"
           title="Добавить"
         />
@@ -47,79 +27,6 @@ export function Main() {
       <section className="photo-grid">
         <ul className="photo-grid__list" />
       </section>
-      <PopupWithForm title="Редактировать профиль" name="profile">
-        <label className="popup__field">
-          <input
-            id="name"
-            name="name"
-            className="popup__input popup__input_type_name"
-            placeholder="Имя"
-            autoComplete="off"
-            required=""
-            minLength={2}
-            maxLength={40}
-          />
-          <span className="name-error" />
-        </label>
-        <label className="popup__field">
-          <input
-            id="about"
-            name="about"
-            className="popup__input popup__input_type_about"
-            placeholder="О себе"
-            autoComplete="off"
-            required=""
-            minLength={2}
-            maxLength={200}
-          />
-          <span className="about-error" />
-        </label>
-      </PopupWithForm>
-      <PopupWithForm title="Новое место" name="add-card">
-        <label className="popup__field">
-          <input
-            id="title"
-            name="title"
-            type="text"
-            required=""
-            className="popup__input popup__input_type_title"
-            placeholder="Название"
-            autoComplete="off"
-            minLength={2}
-            maxLength={30}
-          />
-          <span className="title-error" />
-        </label>
-        <label className="popup__field">
-          <input
-            id="url"
-            name="url"
-            type="url"
-            required=""
-            className="popup__input popup__input_type_url"
-            placeholder="Ссылка на картинку"
-            autoComplete="off"
-          />
-          <span className="url-error" />
-        </label>
-      </PopupWithForm>
-      <PopupWithForm title="Обновить аватар" name="update-avatar">
-        <label className="popup__field">
-          <input
-            id="avatar"
-            name="avatar"
-            type="url"
-            required=""
-            className="popup__input popup__input_type_title"
-            placeholder="Ссылка"
-            autoComplete="off"
-            minLength={2}
-          />
-          <span className="avatar-error" />
-        </label>
-      </PopupWithForm>
-      <PopupWithForm title="Вы уверены?" name="delete-confirmation" button={buttonType.YES}></PopupWithForm>
-      <ImagePopup />
     </main>
   );
 }
