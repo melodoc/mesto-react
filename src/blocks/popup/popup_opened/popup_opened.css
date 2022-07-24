@@ -1,5 +1,5 @@
 .popup_opened {
-  /* display: flex; */
+  display: flex;
   /* smooth */
   opacity: 1;
   height: auto;
