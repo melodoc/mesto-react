@@ -11,14 +11,20 @@ export function Main({
   const [userName, setUserName] = useState(null);
   const [userDescription, setUserDescription] = useState(null);
   const [userAvatar, setUserAvatar] = useState(null);
+  const [cards, setCards] = useState(null);
 
   useEffect(() => {
-    apiClient.getUserInformation().then((userInformation) => {
-      setUserName(userInformation.name);
-      setUserDescription(userInformation.about);
-      setUserAvatar(userInformation.avatar);
-    });
-  });
+    Promise.all([apiClient.getUserInformation(), apiClient.getCards()])
+      .then(([userInformation, cards]) => {
+        setUserName(userInformation.name);
+        setUserDescription(userInformation.about);
+        setUserAvatar(userInformation.avatar);
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   return (
     <main className="main">
@@ -52,7 +58,31 @@ export function Main({
         />
       </section>
       <section className="photo-grid">
-        <ul className="photo-grid__list" />
+        <ul className="photo-grid__list">
+        {cards ? cards.map((card) => {
+          return (
+            <li className="card" key={card._id}>
+              <button
+                className="card__trash-button"
+                type="button"
+                title="Удалить"
+              />
+              <img className="card__image" alt={card.name} src={card.link}/>
+              <div className="card__description">
+                <h2 className="card__header">{card.name}</h2>
+                <div>
+                  <button
+                    className="card__like-button"
+                    type="button"
+                    title="Нравится"
+                  />
+                  <p className="card__like-counter">{card.likes.length}</p>
+                </div>
+              </div>
+            </li>
+          );
+        }) : 'Загрузка...'}
+        </ul>
       </section>
     </main>
   );
