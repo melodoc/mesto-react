@@ -1,7 +1,7 @@
 export function ImagePopup({card, onClose}) {
   return (
     <div
-      className={`popup popup_zoom_image ${card ? 'popup_opened' : ''}`}
+      className={`popup popup_zoom_image ${card && 'popup_opened'}`}
       id="zoom-img"
     >
       <div className="popup__container popup__container_zoom_image">
@@ -14,10 +14,10 @@ export function ImagePopup({card, onClose}) {
         <div>
           <img
             className="popup__image"
-            src={card ? card.link : ''}
-            alt={card ? card.name : ''}
+            src={card?.link}
+            alt={card?.name}
           />
-          <p className="popup__description">{card ? card.name : ''}</p>
+          <p className="popup__description">{card?.name}</p>
         </div>
       </div>
     </div>

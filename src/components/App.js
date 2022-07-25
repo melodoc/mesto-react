@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Header} from './components/Header';
-import { Main} from './components/Main';
-import { Footer} from './components/Footer';
-import { PopupWithForm } from './components/PopupWithForm';
-import { ImagePopup } from './components/ImagePopup';
-import { buttonType } from './constants';
+import { buttonType } from '../constants';
+import { Header} from './Header';
+import { Main} from './Main';
+import { Footer} from './Footer';
+import { PopupWithForm } from './PopupWithForm';
+import { ImagePopup } from './ImagePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(null);
@@ -43,7 +43,6 @@ function App() {
   };
 
   return (
-    <>
       <div className="page">
         <Header />
         <Main
@@ -59,6 +58,7 @@ function App() {
           name="profile"
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          buttonName={buttonType.SAVE}
         >
           <label className="popup__field">
             <input
@@ -92,6 +92,7 @@ function App() {
           name="add-card"
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
+          buttonName={buttonType.SAVE}
         >
           <label className="popup__field">
             <input
@@ -125,6 +126,7 @@ function App() {
           name="update-avatar"
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
+          buttonName={buttonType.SAVE}
         >
           <label className="popup__field">
             <input
@@ -145,11 +147,10 @@ function App() {
           name="delete-confirmation"
           isOpen={isDeletePopupOpen}
           onClose={closeAllPopups}
-          button={buttonType.YES}
+          buttonName={buttonType.YES}
         ></PopupWithForm>
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
-    </>
   );
 }
 
