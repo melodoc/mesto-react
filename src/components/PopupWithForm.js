@@ -1,21 +1,13 @@
-import { buttonType } from '../constants';
-
-const getButtonName = (button) => {
-  return button === buttonType.SAVE ? 'Сохранить' : 'Да';
-};
-
 export function PopupWithForm({
   title,
   name,
   children,
   isOpen,
   onClose,
-  button
+  buttonName
 }) {
-  const buttonName = getButtonName(button);
-
   return (
-    <div className={`popup ${isOpen ? 'popup_opened' : ''}`} id={name}>
+    <div className={`popup ${isOpen && 'popup_opened'}`} id={name}>
       <div className="popup__container">
         <button
           onClick={onClose}
@@ -24,7 +16,7 @@ export function PopupWithForm({
           title="Закрыть"
         />
         <form className="popup__form" name={`${name}-form`}>
-          <div className="popup__wrapper">
+          <div className={`popup__wrapper popup__wrapper_type_${name}`}>
             <h3 className="popup__heading">{title}</h3>
             {children}
             <button
