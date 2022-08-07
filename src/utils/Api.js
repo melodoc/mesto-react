@@ -34,7 +34,7 @@ export class Api {
     return this._fetchHandle(this._methods.GET, '/cards');
   }
 
-  editProfile(name, about) {
+  setUserInfo(name, about) {
     return this._fetchHandle(this._methods.PATCH, '/users/me', {
       name,
       about

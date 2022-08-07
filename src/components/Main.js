@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-
 import { apiClient } from '../utils/Api';
 import avatar from '../images/loader.gif';
 import { Card } from './Card';
