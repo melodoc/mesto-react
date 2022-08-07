@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
 import { apiClient } from '../utils/Api';
 import avatar from '../images/loader.gif';
 import { Card } from './Card';
@@ -10,22 +12,15 @@ export function Main({
   onDeleteConfirmation,
   onCardClick
 }) {
-  const [userName, setUserName] = useState(null);
-  const [userDescription, setUserDescription] = useState(null);
-  const [userAvatar, setUserAvatar] = useState(null);
   const [cards, setCards] = useState(null);
+  const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
-    Promise.all([apiClient.getUserInformation(), apiClient.getCards()])
-      .then(([userInformation, cards]) => {
-        setUserName(userInformation.name);
-        setUserDescription(userInformation.about);
-        setUserAvatar(userInformation.avatar);
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    apiClient.getCards().then((cards) => {
+      setCards(cards);
+    }).catch((err) => {
+      console.error(err);
+    });
   }, []);
 
   return (
@@ -38,19 +33,19 @@ export function Main({
         >
           <img
             className="profile__avatar"
-            src={userAvatar ? userAvatar : avatar}
+            src={currentUser?.avatar ? currentUser.avatar : avatar}
             alt="Аватар"
           />
         </a>
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
+          <h1 className="profile__name">{currentUser?.name}</h1>
           <button
             className="profile__button profile__button_action_edit"
             onClick={onEditProfile}
             type="button"
             title="Редактировать"
           />
-          <p className="profile__text">{userDescription}</p>
+          <p className="profile__text">{currentUser?.about}</p>
         </div>
         <button
           className="profile__button profile__button_action_add"
