@@ -16,12 +16,33 @@ export function Main({
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
-    apiClient.getCards().then((cards) => {
-      setCards(cards);
+    apiClient
+      .getCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    apiClient.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
     }).catch((err) => {
       console.error(err);
-    });
-  }, []);
+    });;
+  };
+
+  const handleCardDelete = (card) => {
+    apiClient.deleteCardById(card._id).then(() => {
+      setCards((state) => state.filter((c) => (c._id !== card._id)));
+    }).catch((err) => {
+      console.error(err);
+    });;
+  }
 
   return (
     <main className="main">
@@ -59,7 +80,13 @@ export function Main({
           {cards
             ? cards.map((card) => {
                 return (
-                  <Card card={card} key={card._id} onClick={onCardClick} />
+                  <Card
+                    key={card._id}
+                    card={card}
+                    onClick={onCardClick}
+                    onCardLike={handleCardLike}
+                    onCardDelete={handleCardDelete}
+                  />
                 );
               })
             : 'Загрузка...'}

@@ -52,6 +52,10 @@ export class Api {
     return this._fetchHandle(this._methods.DELETE, `/cards/${cardId}`);
   }
 
+  changeLikeCardStatus(cardId, setLike) {
+    return setLike ? this.setLikeById(cardId) : this.deleteLikeById(cardId);
+  }
+
   setLikeById(cardId) {
     return this._fetchHandle(this._methods.PUT, `/cards/${cardId}/likes`);
   }
