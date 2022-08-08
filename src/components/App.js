@@ -8,6 +8,7 @@ import { Footer } from './Footer';
 import { PopupWithForm } from './PopupWithForm';
 import { ImagePopup } from './ImagePopup';
 import { EditProfilePopup } from './EditProfilePopup';
+import { EditAvatarPopup } from './EditAvatarPopup';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -58,11 +59,22 @@ function App() {
   };
 
   const handleUpdateUser = ({ name, about }) => {
-    console.info(name, about);
     apiClient
       .setUserInfo(name, about)
       .then((updatedUserInfo) => {
         setCurrentUser(updatedUserInfo);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleUpdateAvatar = ({ avatar }) => {
+    apiClient
+      .updateUserAvatar(avatar)
+      .then(() => {
+        setCurrentUser({ ...currentUser, avatar: avatar });
         closeAllPopups();
       })
       .catch((err) => {
@@ -121,27 +133,11 @@ function App() {
             <span className="url-error" />
           </label>
         </PopupWithForm>
-        <PopupWithForm
-          title="Обновить аватар"
-          name="update-avatar"
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-          buttonName={buttonType.SAVE}
-        >
-          <label className="popup__field">
-            <input
-              id="avatar"
-              name="avatar"
-              type="url"
-              required=""
-              className="popup__input popup__input_type_title"
-              placeholder="Ссылка"
-              autoComplete="off"
-              minLength={2}
-            />
-            <span className="avatar-error" />
-          </label>
-        </PopupWithForm>
+          onUpdateAvatar={handleUpdateAvatar}
+        />
         <PopupWithForm
           title="Вы уверены?"
           name="delete-confirmation"
