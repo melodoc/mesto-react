@@ -5,10 +5,15 @@ import { PopupWithForm } from './PopupWithForm';
 export function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const avatar = useRef(null);
 
+  const clearAvatar = () => {
+    avatar.current.value = '';
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdateAvatar({
-      avatar: avatar.current.value
+      avatar: avatar.current.value,
+      clearAvatar
     });
   };
 
