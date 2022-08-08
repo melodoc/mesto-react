@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { apiClient } from '../utils/Api';
+import { useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import avatar from '../images/loader.gif';
 import { Card } from './Card';
 
@@ -8,25 +8,12 @@ export function Main({
   onAddPlace,
   onEditAvatar,
   onDeleteConfirmation,
-  onCardClick
+  onCardClick,
+  cards,
+  onCardLike,
+  onCardDelete
 }) {
-  const [userName, setUserName] = useState(null);
-  const [userDescription, setUserDescription] = useState(null);
-  const [userAvatar, setUserAvatar] = useState(null);
-  const [cards, setCards] = useState(null);
-
-  useEffect(() => {
-    Promise.all([apiClient.getUserInformation(), apiClient.getCards()])
-      .then(([userInformation, cards]) => {
-        setUserName(userInformation.name);
-        setUserDescription(userInformation.about);
-        setUserAvatar(userInformation.avatar);
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <main className="main">
@@ -38,19 +25,19 @@ export function Main({
         >
           <img
             className="profile__avatar"
-            src={userAvatar ? userAvatar : avatar}
+            src={currentUser?.avatar ? currentUser.avatar : avatar}
             alt="Аватар"
           />
         </a>
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
+          <h1 className="profile__name">{currentUser?.name}</h1>
           <button
             className="profile__button profile__button_action_edit"
             onClick={onEditProfile}
             type="button"
             title="Редактировать"
           />
-          <p className="profile__text">{userDescription}</p>
+          <p className="profile__text">{currentUser?.about}</p>
         </div>
         <button
           className="profile__button profile__button_action_add"
@@ -64,7 +51,13 @@ export function Main({
           {cards
             ? cards.map((card) => {
                 return (
-                  <Card card={card} key={card._id} onClick={onCardClick} />
+                  <Card
+                    key={card._id}
+                    card={card}
+                    onClick={onCardClick}
+                    onCardLike={onCardLike}
+                    onCardDelete={onCardDelete}
+                  />
                 );
               })
             : 'Загрузка...'}

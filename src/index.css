@@ -35,6 +35,7 @@
 /* TODO: Remove to separate folder */
 @import url('./blocks/card/__like-button_state_active/card__like-button_state_active.css');
 @import url('./blocks/card/__trash-button/card__trash-button.css');
+@import url('./blocks/card/__trash-button_state_hidden/card__trash-button_state_hidden.css');
 /* footer */
 @import url('./blocks/footer/footer.css');
 @import url('./blocks/footer/__copyright/footer__copyright.css');

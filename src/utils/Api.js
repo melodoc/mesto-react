@@ -34,7 +34,7 @@ export class Api {
     return this._fetchHandle(this._methods.GET, '/cards');
   }
 
-  editProfile(name, about) {
+  setUserInfo(name, about) {
     return this._fetchHandle(this._methods.PATCH, '/users/me', {
       name,
       about
@@ -50,6 +50,10 @@ export class Api {
 
   deleteCardById(cardId) {
     return this._fetchHandle(this._methods.DELETE, `/cards/${cardId}`);
+  }
+
+  changeLikeCardStatus(cardId, setLike) {
+    return setLike ? this.setLikeById(cardId) : this.deleteLikeById(cardId);
   }
 
   setLikeById(cardId) {
