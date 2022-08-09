@@ -49,17 +49,15 @@ export function Main({
       <section className="photo-grid">
         <ul className="photo-grid__list">
           {cards
-            ? cards.map((card) => {
-                return (
-                  <Card
-                    key={card._id}
-                    card={card}
-                    onClick={onCardClick}
-                    onCardLike={onCardLike}
-                    onCardDelete={onCardDelete}
-                  />
-                );
-              })
+            ? cards.map((card) => (
+                <Card
+                  key={card._id}
+                  card={card}
+                  onClick={onCardClick}
+                  onCardLike={onCardLike}
+                  onCardDelete={onCardDelete}
+                />
+              ))
             : 'Загрузка...'}
         </ul>
       </section>
