@@ -36,4 +36,4 @@ Made by melodoc as part of the course **Web Developer** by Yandex.Practicum
 
 ## Feature plans
 
-None
+- add gh-pages
